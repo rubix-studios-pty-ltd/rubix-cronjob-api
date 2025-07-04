@@ -1,0 +1,3 @@
+.env
+cron-job-log.json
+node_modules
