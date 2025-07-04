@@ -19,22 +19,22 @@ This script automates the creation of recurring HTTP requests (cron jobs) using 
 1. Install dependencies:
 
 ```bash
-   pnpm install
+pnpm install
 ```
 
 2. Copy the example environment file and configure:
 
-   ```bash
-   cp .env.sample .env
-   ```
+```bash
+cp .env.sample .env
+```
 
 3. Edit `.env` and add:
 
-   ```plaintext
-   API_KEY=your_api_key_here
-   BUSINESS_NAME=Your Business Name
-   WEBSITE_URL=https://yourwebsite.com
-   ```
+```plaintext
+API_KEY=your_api_key_here
+BUSINESS_NAME=Your Business Name
+WEBSITE_URL=https://yourwebsite.com
+```
 
 ## Usage
 
