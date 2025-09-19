@@ -5,16 +5,23 @@ const axios = require("axios");
 const path = require("path");
 
 const LOG_FILE = path.resolve(__dirname, "cron-job-log.json");
-const API_KEY = process.env.API_KEY || '';
+const API_KEY = process.env.API_KEY;
 const API_URL = "https://api.cron-job.org/jobs";
 
-const businessName = process.env.BUSINESS_NAME || '';
-const websiteUrl = process.env.WEBSITE_URL || '';
+const businessName = process.env.BUSINESS_NAME;
+const websiteUrl = process.env.WEBSITE_URL;
 
 if (!API_KEY || !businessName || !websiteUrl) {
-  console.error("Missing required config API_KEY, BUSINESS_NAME, WEBSITE_URL");
+  console.error("Missing required config");
   process.exit(1);
 }
+
+const endpoints = [
+  { path: "/?seraph_accel_at=TO", interval: 1 },
+  { path: "/?seraph_accel_at=O", interval: 1 },
+  { path: "/?seraph_accel_at=M", interval: 1 },
+  { path: "/wp-cron.php?doing_wp_cron", interval: 5 },
+];
 
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -79,14 +86,8 @@ async function createCronJob(name, fullUrl, intervalMinutes, log) {
 }
 
 async function createJobsForBusiness(businessName, baseUrl) {
-  const endpoints = [
-    { path: "/?seraph_accel_at=TO", interval: 1 },
-    { path: "/?seraph_accel_at=O", interval: 1 },
-    { path: "/?seraph_accel_at=M", interval: 1 },
-    { path: "/wp-cron.php?doing_wp_cron", interval: 5 },
-  ];
 
-  const log = loadLog();
+const log = loadLog();
 
 const sanitizedBaseUrl = baseUrl.replace(/\/+$/, "");
 
